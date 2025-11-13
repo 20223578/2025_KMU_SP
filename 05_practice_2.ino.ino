@@ -1,40 +1,27 @@
-/*
-  Fade
+#define PIN_LED 7   // LED tashqi ulanishda ishlatiladigan pin
 
-  This example shows how to fade an LED on pin 9 using the analogWrite()
-  function.
-
-  The analogWrite() function uses PWM, so if you want to change the pin you're
-  using, be sure to use another PWM capable pin. On most Arduino, the PWM pins
-  are identified with a "~" sign, like ~3, ~5, ~6, ~9, ~10 and ~11.
-
-  This example code is in the public domain.
-
-  https://www.arduino.cc/en/Tutorial/BuiltInExamples/Fade
-*/
-
-int led = 9;         // the PWM pin the LED is attached to
-int brightness = 0;  // how bright the LED is
-int fadeAmount = 5;  // how many points to fade the LED by
-
-// the setup routine runs once when you press reset:
 void setup() {
-  // declare pin 9 to be an output:
-  pinMode(led, OUTPUT);
+  pinMode(PIN_LED, OUTPUT);   // Pin 7 ni chiqish rejimiga o‘tkazamiz
 }
 
-// the loop routine runs over and over again forever:
 void loop() {
-  // set the brightness of pin 9:
-  analogWrite(led, brightness);
 
-  // change the brightness for next time through the loop:
-  brightness = brightness + fadeAmount;
+  // 1) Dastur boshlanishida LED 1 sekund davomida YONIQ
+  digitalWrite(PIN_LED, HIGH);   // LED ON
+  delay(1000);                   // 1 sekund kutish
 
-  // reverse the direction of the fading at the ends of the fade:
-  if (brightness <= 0 || brightness >= 255) {
-    fadeAmount = -fadeAmount;
+  // 2) Keyingi 1 sekund ichida LEDni 5 marta blink qilish
+  for (int i = 0; i < 5; i++) {
+    digitalWrite(PIN_LED, HIGH);   // LED ON
+    delay(100);                    // 0.1s
+    digitalWrite(PIN_LED, LOW);    // LED OFF
+    delay(100);                    // 0.1s
   }
-  // wait for 30 milliseconds to see the dimming effect
-  delay(30);
+
+  // 3) LEDni O‘CHIRIB, cheksiz loopga o‘tish
+  digitalWrite(PIN_LED, LOW);  // LED OFF
+
+  while (1) {
+    // Infinite loop: dastur shu yerda tugaydi
+  }
 }
